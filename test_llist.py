@@ -1,16 +1,24 @@
 import pytest
 from linked_list import Node, LinkedList
 
+
+@pytest.fixture
+def llist():
+    return LinkedList()
+
+
+@pytest.mark.init
 def test_node_init_str_repr():
     first_node = Node(1)
     second_node = Node('a')
     assert str(first_node) == '1'
     assert repr(second_node) == 'Node(a)'
 
-def test_llist_init_str_repr():
+
+@pytest.mark.init
+def test_llist_init_str_repr(llist):
     first_node = Node(1)
     second_node = Node('a')
-    llist = LinkedList()
     assert str(llist) == 'None'
     assert repr(llist) == 'LinkedList()'
     llist.head = first_node
@@ -21,24 +29,26 @@ def test_llist_init_str_repr():
     assert str(llist) == '2 -> b -> None'
     assert repr(llist) == 'LinkedList(2, b)'
 
-def test_iter():
-    llist = LinkedList()
+
+def test_iter(llist):
     assert [item for item in llist] == []
     llist = LinkedList([3, 'c', -10.9])
     assert list(map(str, llist)) == ['3', 'c', '-10.9']
 
-def test_appendleft():
-    llist = LinkedList()
-    assert repr(llist) == 'LinkedList()'
-    llist.appendleft(0)
-    assert repr(llist) == 'LinkedList(0)'
-    llist.appendleft('car')
-    assert repr(llist) == 'LinkedList(car, 0)'
-    llist.appendleft(-2.1)
-    assert repr(llist) == 'LinkedList(-2.1, car, 0)'
 
-def test_append():
-    llist = LinkedList()
+@pytest.mark.parametrize("prev_llist, item, expected_llist", [
+    (LinkedList(), None, 'LinkedList()'),
+    (LinkedList(), 0, 'LinkedList(0)'),
+    (LinkedList([0]), "car", 'LinkedList(car, 0)'),
+    (LinkedList(['car', 0]), -2.1, 'LinkedList(-2.1, car, 0)'),
+])
+def test_appendleft(prev_llist, item, expected_llist):
+    if item not is None:
+        prev_llist.appendleft(item)
+    assert repr(prev_llist) == expected_llist
+
+
+def test_append(llist):
     assert repr(llist) == 'LinkedList()'
     llist.append(0)
     assert repr(llist) == 'LinkedList(0)'
@@ -47,8 +57,8 @@ def test_append():
     llist.append(-2.1)
     assert repr(llist) == 'LinkedList(0, car, -2.1)'
 
-def test_insert():
-    llist = LinkedList()
+
+def test_insert(llist):
     assert repr(llist) == 'LinkedList()'
     llist.insert(0, 'car')
     assert repr(llist) == 'LinkedList(car)'
@@ -61,8 +71,8 @@ def test_insert():
     llist.insert(3, -4.4)
     assert repr(llist) == 'LinkedList(10, 2, car, -4.4, 0)'
 
-def test_remove():
-    llist = LinkedList()
+
+def test_remove(llist):
     assert repr(llist) == 'LinkedList()'
     with pytest.raises(Exception):
         llist.remove(99.5)
@@ -77,8 +87,8 @@ def test_remove():
     with pytest.raises(Exception):
         llist.remove(-1)
 
-def test_getitem():
-    llist = LinkedList()
+
+def test_getitem(llist):
     assert repr(llist) == 'LinkedList()'
     with pytest.raises(Exception):
         llist[0]
@@ -91,8 +101,8 @@ def test_getitem():
     with pytest.raises(IndexError):
         llist[-1]
 
-def test_setitem():
-    llist = LinkedList()
+
+def test_setitem(llist):
     assert repr(llist) == 'LinkedList()'
     with pytest.raises(Exception):
         llist[0] = 0
@@ -109,8 +119,8 @@ def test_setitem():
     with pytest.raises(IndexError):
         llist[-1] = -1
 
-def test_delitem():
-    llist = LinkedList()
+
+def test_delitem(llist):
     assert repr(llist) == 'LinkedList()'
     with pytest.raises(Exception):
         del llist[0]

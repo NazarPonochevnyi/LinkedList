@@ -4,10 +4,10 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-    
+
     def __str__(self):
         return str(self.data)
-    
+
     def __repr__(self):
         return f'Node({self.data})'
 
@@ -20,8 +20,8 @@ class LinkedList:
             self.head = node
             for elem in nodes:
                 node.next = Node(elem)
-                node = node.next                
-    
+                node = node.next
+
     def __str__(self):
         nodes = []
         node = self.head
@@ -30,7 +30,7 @@ class LinkedList:
             node = node.next
         nodes.append('None')
         return ' -> '.join(map(str, nodes))
-    
+
     def __repr__(self):
         nodes = []
         node = self.head
@@ -38,13 +38,13 @@ class LinkedList:
             nodes.append(node)
             node = node.next
         return 'LinkedList({})'.format(', '.join(map(str, nodes)))
-    
+
     def __iter__(self):
         node = self.head
         while node is not None:
             yield node
             node = node.next
-    
+
     def __getitem__(self, index):
         if index < 0:
             raise IndexError("list index must be >= 0")
@@ -56,7 +56,7 @@ class LinkedList:
                 return current_node.data
             i += 1
         raise IndexError("list index out of range")
-    
+
     def __setitem__(self, index, value):
         if index < 0:
             raise IndexError("list index must be >= 0")
@@ -69,7 +69,7 @@ class LinkedList:
                 return
             i += 1
         raise IndexError("list index out of range")
-    
+
     def __delitem__(self, index):
         if index < 0:
             raise IndexError("list index must be >= 0")
@@ -86,12 +86,12 @@ class LinkedList:
             previous_node = current_node
             i += 1
         raise IndexError("list index out of range")
-    
+
     def appendleft(self, data):
         node = Node(data)
         node.next = self.head
         self.head = node
-    
+
     def append(self, data):
         new_node = Node(data)
         if not self.head:
@@ -100,7 +100,7 @@ class LinkedList:
         for current_node in self:
             pass
         current_node.next = new_node
-    
+
     def insert(self, index, data):
         if not self.head or index <= 0:
             self.appendleft(data)
@@ -113,7 +113,7 @@ class LinkedList:
                 return
             i += 1
         current_node.next = new_node
-    
+
     def remove(self, data):
         if not self.head:
             raise Exception("list is empty")
