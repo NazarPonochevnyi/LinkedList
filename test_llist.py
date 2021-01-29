@@ -43,7 +43,7 @@ def test_iter(llist):
     (LinkedList(['car', 0]), -2.1, 'LinkedList(-2.1, car, 0)'),
 ])
 def test_appendleft(prev_llist, item, expected_llist):
-    if item not is None:
+    if item is not None:
         prev_llist.appendleft(item)
     assert repr(prev_llist) == expected_llist
 
