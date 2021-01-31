@@ -7,7 +7,7 @@
 ![](https://img.shields.io/github/languages/code-size/NazarPonochevnyi/LinkedList)
 ![](https://img.shields.io/github/last-commit/NazarPonochevnyi/LinkedList)
 
-🔗 My implementation of Linked List and practice with pytest and Travis CI.
+🔗 My implementation of Linked List and practice with pytest, Travis CI and DeepSource.io.
 
 ## License
 [MIT License](./LICENSE)
